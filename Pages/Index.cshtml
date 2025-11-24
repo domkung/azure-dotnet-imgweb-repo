@@ -21,10 +21,12 @@
             </div>
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" asp-for="Upload">
-                        <label class="custom-file-label">Choose image</label>
+                        <input type="file" class="custom-file-input" asp-for="Upload" id="uploadInput">
+                        <label class="custom-file-label" for="uploadInput">Choose image</label>
                     </div>
+                    <div class="mt-2 text-danger"><span asp-validation-for="Upload"></span></div>
                     <button type="submit" class="btn btn-secondary">Upload</button>
                 </form>
             </div>
@@ -53,5 +55,29 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        // Client-side pre-check to avoid large uploads
+        (function(){
+            var maxBytes = 10 * 1024 * 1024; // 10 MB
+            var form = document.querySelector('form[method="post"]');
+            var input = document.getElementById('uploadInput');
+            if (!form || !input) return;
+            form.addEventListener('submit', function(e){
+                if (input.files && input.files.length > 0){
+                    if (input.files[0].size > maxBytes){
+                        e.preventDefault();
+                        alert('ไฟล์ขนาดใหญ่กว่าที่กำหนด (สูงสุด 10 MB)');
+                    }
+                }
+            });
+            // show chosen filename
+            input.addEventListener('change', function(){
+                var label = document.querySelector('label[for="uploadInput"]');
+                if (label){
+                    label.textContent = input.files && input.files.length > 0 ? input.files[0].name : 'Choose image';
+                }
+            });
+        })();
+    </script>
 </body>
 </html>

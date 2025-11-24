@@ -1,0 +1,28 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore Web.sln
+
+      - name: Build
+        run: dotnet build Web.sln -c Release --no-restore
+
+      - name: Test
+        run: dotnet test tests/Web.Tests -c Release --no-build --verbosity normal

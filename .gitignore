@@ -1,0 +1,67 @@
+# Ignore Visual Studio temporary files, build outputs, and user-specific files
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build folders
+bin/
+obj/
+**/bin/
+**/obj/
+artifacts/
+
+# Test results
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Publish outputs
+publish/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# User secrets
+secrets.json
+
+# Azure / azd
+.azure/
+.azd/
+
+# Logs and local databases
+*.log
+*.sql
+*.db
+
+# Docker
+docker-compose.override.yml
+
+# OS files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+**/Thumbs.db
+
+# JetBrains Rider caches
+.idea/
+.idea/*
+
+# Ignore test builds and coverage directories
+coverage/
+.coverage
+.nyc_output/
