@@ -51,5 +51,12 @@ namespace Web.Tests
             Assert.True(double.IsInfinity(result));
             Assert.Equal(double.PositiveInfinity, result);
         }
+
+        [Fact]
+        public void Divide_ZeroByZero_ReturnsNaN()
+        {
+            double result = _calc.Divide(0, 0);
+            Assert.True(double.IsNaN(result));
+        }
     }
 }
